@@ -273,6 +273,155 @@ class PerformanceListener(AbstractEventListener):
 driver = EventFiringWebDriver(webdriver.Chrome(), PerformanceListener())
 ```
 
+---
+
+## Preguntas finales
+
+Respuesta a cada pregunta basado en el contexto del script de prueba funcional:
+
+## ¿Qué tipo de errores podrías detectar con esta prueba funcional?
+
+### Errores de Funcionalidad
+
+- **Campo de búsqueda no funciona:** Si el input no acepta texto o no procesa la búsqueda
+- **Botón de búsqueda roto:** Si el formulario no se envía correctamente
+- **Resultados no se cargan:** Si la página no muestra resultados después de la búsqueda
+- **Enlaces rotos:** Si los resultados no llevan a páginas válidas
+
+### Errores de Interfaz (UI)
+
+- **Elementos desplazados:** Si el campo de búsqueda no está visible
+- **Cambios en selectores:** Como pasó en tu caso con .result vs [data-testid='result']
+- **CSS roto:** Si los elementos no se renderizan correctamente
+- **Responsive issues:** Si la página no funciona en diferentes resoluciones
+
+### Errores de Rendimiento
+
+- **Carga lenta:** Si los elementos tardan más del timeout esperado
+- **JavaScript no ejecuta:** Si componentes dinámicos no cargan
+- **Memory leaks:** Si la página consume demasiada memoria
+
+### Errores de Integración
+
+- **APIs fallando:** Si la búsqueda depende de servicios externos
+- **Base de datos desconectada:** Si no hay conexión con el backend
+- **CDN problemas:** Si recursos externos no cargan
+
+### Errores de Compatibilidad
+
+- **Navegador específico:** Comportamiento diferente entre Chrome/Firefox/Safari
+- **Versiones del navegador:** Funciones no soportadas en versiones antiguas
+- **Sistema operativo:** Diferencias entre Windows/Linux/macOS
+
+---
+
+## ¿Por qué es importante automatizar pruebas desde la perspectiva del usuario?
+
+### Validación de Experiencia Real
+
+- **Flujo completo:** Simula exactamente lo que hace un usuario real
+- **Interacciones complejas:** Clicks, scroll, formularios, navegación
+- **Casos edge:** Situaciones que los desarrolladores no consideraron
+
+### Eficiencia y Escalabilidad
+
+```python
+# Manual: 1 tester, 1 navegador, 8 horas/día
+# Automatizado: N tests, N navegadores, 24/7
+def test_multiple_browsers():
+    browsers = ['chrome', 'firefox', 'safari', 'edge']
+    for browser in browsers:
+        run_test_suite(browser)  # Imposible manual
+```
+
+### Consistencia
+
+- **Mismos pasos:** Elimina variabilidad humana
+- **Mismos datos:** Usa datasets controlados
+- **Misma velocidad:** Timing predecible
+
+### Detección Temprana
+
+- En CI/CD pipeline
+- Detecta errores de código
+- Detecta errores de UX
+
+### ROI (Return on Investment)
+
+- **Costo inicial alto:** Desarrollo de scripts
+- **Costo continuo bajo:** Ejecución automática
+- **Ahorro a largo plazo:** Menos bugs en producción
+
+### Regresión Prevention
+
+- Cada deploy ejecuta TODAS las pruebas anteriores
+
+### Documentación Viva
+
+- Los tests actúan como documentación ejecutable
+- Muestran cómo debería funcionar el sistema
+- Se mantienen actualizados automáticamente
+
+---
+
+## ¿Qué limitaciones tiene Selenium y cómo las superarías?
+
+- **Limitación 1:** Rendimiento y Velocidad
+- **Solución:** Combinación de herramientas
+- **Limitación 2:** Mantenimiento de Selectores
+- **Solución:** Page Object Model
+- **Limitación 3:** Aplicaciones SPA y JavaScript Pesado
+- **Solución:** Esperas inteligentes
+- **Limitación 4:** Escalabilidad
+- **Solución:** Selenium Grid + Docker
+- **Limitación 5:** Código paralelo
+- **Solución:** Appium + Device Farm
+- **Limitación 6:** Captcha y Sistemas Anti-Bot
+- **Solución:** Técnicas de evasión
+
+- Estrategia Integral para Superar Limitaciones
+
+```python
+class ModernTestFramework:
+    def __init__(self):
+        self.api_client = APIClient()
+        self.selenium_driver = None
+        self.playwright_browser = None
+    
+    def test_feature_complete(self):
+        # 1. API testing (rápido)
+        self.api_client.test_search_endpoint()
+        
+        # 2. Visual testing (componentes)
+        self.playwright_browser.screenshot_compare()
+        
+        # 3. E2E critical path (Selenium)
+        self.selenium_driver.test_user_journey()
+        
+        # 4. Performance testing
+        lighthouse_score = self.run_lighthouse_audit()
+        
+        # 5. Accessibility testing
+        axe_results = self.run_axe_core()
+        
+        return all([api_ok, visual_ok, e2e_ok, perf_ok, a11y_ok])
+```
+
+---
+
+## Herramientas Complementarias
+
+- **Playwright:** Más rápido, mejor para SPAs
+- **Cypress:** Mejor experiencia de desarrollo
+- **Puppeteer:** Control fino de Chrome
+- **TestCafe:** Sin WebDriver, más estable
+- **Postman/Newman:** API testing
+- **k6:** Performance testing
+
+En resumen, Selenium sigue siendo valioso pero debe usarse estratégicamente, combinado con otras herramientas y técnicas modernas para crear una suite de testing robusta y eficiente.
+
+---
+
 ## Contribuir
 
 ### Cómo Contribuir
